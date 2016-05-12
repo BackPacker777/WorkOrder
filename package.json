@@ -1,0 +1,33 @@
+{
+  "name": "WorkOrder",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Work Order without frameworks",
+  "main": "app.js",
+  "keywords": [
+    "nedb",
+    "spa"
+  ],
+  "author": {
+    "name": "Bates, Howard",
+    "email": "hbates@northmen.org"
+  },
+  "scripts": {
+    "start": "node ./bin/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/backpacker777/WorkOrder.git"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "latest",
+    "eslint": "latest",
+    "formidable": "latest",
+    "ejs": "latest",
+    "nedb": "latest"
+  }
+}
