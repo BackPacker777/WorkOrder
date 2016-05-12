@@ -25,6 +25,7 @@ class main {
                XHR.open('POST', event.target.dataset.url + bustCache, true);
                XHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                XHR.send(data);
+               document.getElementById('theForm').reset();
           });
      }
 }
