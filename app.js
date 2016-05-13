@@ -69,7 +69,12 @@ class app {
                    formData[field] = name;
               }).on('error', function(err) {
                    next(err);
-              }).on('end', _ => this.dataHandler.addData(formData));
+              }).on('end', _ => {
+                    this.dataHandler.addData(formData);
+                    res.writeHead(200, {'content-type': 'text/plain'});
+                    res.write('Request Received. ');
+                    res.end('Thank you!');
+          });
      }
 }
 

@@ -2,48 +2,67 @@
 
 <div class="row">
 	<div class="small-12 columns">
-		<h1>Technology Work Order</h1>
+		<h1 id="title">Technology Work Order</h1>
 	</div>
 </div>
 <br>
-<form id="theForm">
-	<div class="row">
-		<div class="small-2 columns">
-            <span class="label">Building</span>
-			<select name="building">
-				<option></option>
-                <option value="central">Central</option>
-                <option value="lincoln">Lincoln</option>
-                <option value="ottawa">Ottawa</option>
-                <option value="sheridan">Sheridan</option>
-                <option value="montessori">Montessori</option>
-                <option value="phs">PHS</option>
-                <option value="pms">PMS</option>
-                <option value="spitler">Spitler</option>
-            </select>
-		</div>
-        <div class="small-2 columns">
-            <span class="label">Room #</span>
-            <input type="number" name="roomNumber" maxlength="3">
-        </div>
-        <div class="small-3 columns end">
-            <span class="label">Submitter</span>
-            <input type="text" name="submitter">
+<ul class="tabs" data-tab>
+    <li class="tabs-title is-active"><a href="#panel1">Entry</a></li>
+    <li class="tabs-title"><a href="#panel2">Update</a></li>
+    <li class="tabs-title"><a href="#panel3">List</a></li>
+</ul>
+<div class="tabs-content" data-tabs-content="Work order stuff">
+    <div class="tabs-panel is-active" id="panel1">
+        <form id="theForm">
+            <div class="row">
+                <div class="small-2 columns">
+                    <span class="label">Building</span>
+                    <select name="building">
+                        <option></option>
+                        <option value="central">Central</option>
+                        <option value="lincoln">Lincoln</option>
+                        <option value="ottawa">Ottawa</option>
+                        <option value="sheridan">Sheridan</option>
+                        <option value="montessori">Montessori</option>
+                        <option value="phs">PHS</option>
+                        <option value="pms">PMS</option>
+                        <option value="spitler">Spitler</option>
+                    </select>
+                </div>
+                <div class="small-2 columns">
+                    <span class="label">Room #</span>
+                    <input type="number" name="roomNumber" maxlength="3">
+                </div>
+                <div class="small-3 columns end">
+                    <span class="label">Submitter</span>
+                    <input type="text" name="submitter">
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-7 columns end">
+                    <span class="label">Description of problem</span>
+                    <textarea name="problemDesc" rows="5" cols="30"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="small-12 columns">
+                    <span class="button" id="submit">SUBMIT</span>
+                </div>
+            </div>
+        </form>
+        <br>
+        <div class="row">
+            <h4 id="result"></h4>
         </div>
     </div>
-    <div class="row">
-        <div class="small-7 columns end">
-            <span class="label">Description of problem</span>
-            <textarea name="problemDesc" rows="10" cols="30"></textarea>
-        </div>
-	</div>
-	<br>
-	<div class="row">
-		<div class="small-12 columns">
-			<span class="button" id="submit">SUBMIT</span>
-		</div>
-	</div>
-</form>
+    <div class="tabs-panel" id="panel2">
+
+    </div>
+    <div class="tabs-panel" id="panel3">
+
+    </div>
+</div>
 
 <!-- SCRIPTS -->
 <script src="public/javascripts/bundle.js"></script>

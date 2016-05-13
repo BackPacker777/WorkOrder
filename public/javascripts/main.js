@@ -7,9 +7,12 @@
 
 "use strict";
 
+const FADE = require('./FadeStuff');
+
 class main {
      constructor() {
-		 main.handleForm();
+          main.handleForm();
+          main.fade('in', 'title');
      }
 
      static handleForm() {
@@ -19,7 +22,10 @@ class main {
                const XHR = new XMLHttpRequest();
                XHR.onload = function() {
                     if (XHR.readyState == 4 && XHR.status == 200) {
-                         document.getElementById('name').innerHTML = XHR.responseText;
+                         document.getElementById('result').style.display= 'none';
+                         document.getElementById('result').innerHTML = XHR.responseText;
+                         main.fade('in', 'result');
+                         main.fade('out', 'result');
                     }
                };
                XHR.open('POST', event.target.dataset.url + bustCache, true);
@@ -27,6 +33,10 @@ class main {
                XHR.send(data);
                document.getElementById('theForm').reset();
           });
+     }
+
+     static fade(direction, fadeWhat) {
+          new FADE(direction, fadeWhat).doFade();
      }
 }
 
