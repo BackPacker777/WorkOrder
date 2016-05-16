@@ -8,6 +8,7 @@
 "use strict";
 
 const FADE = require('./FadeStuff');
+const FOUNDATION = require('./vendor/foundation.min');
 
 class main {
      constructor() {

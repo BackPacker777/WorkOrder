@@ -6,12 +6,11 @@
 	</div>
 </div>
 <br>
-<ul class="tabs" data-tab>
-    <li class="tabs-title is-active"><a href="#panel1">Entry</a></li>
-    <li class="tabs-title"><a href="#panel2">Update</a></li>
-    <li class="tabs-title"><a href="#panel3">List</a></li>
+<ul class="tabs" data-tabs id="wo-tabs">
+    <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Entry/Update</a></li>
+    <li class="tabs-title"><a href="#panel2">List</a></li>
 </ul>
-<div class="tabs-content" data-tabs-content="Work order stuff">
+<div class="tabs-content" data-tabs-content="wo-tabs">
     <div class="tabs-panel is-active" id="panel1">
         <form id="theForm">
             <div class="row">
@@ -46,8 +45,23 @@
             </div>
             <br>
             <div class="row">
-                <div class="small-12 columns">
-                    <span class="button" id="submit">SUBMIT</span>
+                <div class="small-2 columns">
+                    <i class="fa fa-fast-backward fa-3x"></i>
+                </div>
+                <div class="small-2 columns">
+                    <i class="fa fa-caret-left fa-3x"></i>
+                </div>
+                <div class="small-2 columns">
+                    <i class="fa fa-caret-right fa-3x"></i>
+                </div>
+                <div class="small-2 columns end">
+                    <i class="fa fa-fast-forward fa-3x"></i>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="small-7 columns end">
+                    <span class="small-12 columns button" id="submit">SUBMIT</span>
                 </div>
             </div>
         </form>
@@ -55,16 +69,40 @@
         <div class="row">
             <h4 id="result"></h4>
         </div>
+        <div class="row">
+            <div class="small-1 columns">
+                <span class="label">Completed</span>
+                <input type="checkbox" name="completed">
+            </div>
+            <div class="small-2 columns">
+                <span class="label">Assignment:</span>
+                <select name="assigned">
+                    <option></option>
+                    <option value="cody">Cody</option>
+                    <option value="ben">Ben</option>
+                    <option value="hb">Howard</option>
+                </select>
+            </div>
+            <div class="small-4 columns end">
+                <span class="label">Status</span>
+                <textarea name="status" rows="1"></textarea>
+            </div>
+        </div>
     </div>
     <div class="tabs-panel" id="panel2">
-
-    </div>
-    <div class="tabs-panel" id="panel3">
-
+        <% include public/views/list.ejs %>
     </div>
 </div>
 
 <!-- SCRIPTS -->
+<script src="public/javascripts/vendor/jquery-2.2.3.min.js"></script>
+<script src="public/javascripts/vendor/foundation.min.js"></script>
 <script src="public/javascripts/bundle.js"></script>
+<script src="https://use.fontawesome.com/4270d89823.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(document).foundation();
+    });
+</script>
 
 <% include public/views/footer.ejs %>
