@@ -43,6 +43,9 @@ class app {
                               res.writeHead(405, "Method not supported", { 'Content-Type': 'text/html' });
                               res.end('<html><head><title>405 - Method not supported</title></head><body><h1>Method not supported.</h1></body></html>');
                          }
+                    } else if (req.headers['x-requested-LOAD'] === 'XMLHttpRequest2') {
+                         console.log('-= LOADING DATA =-');
+                         this.loadData(req, res);
                     } else if (req.url.indexOf('/javascripts/') >= 0) {
                          this.render(req.url.slice(1), 'application/ecmascript', httpHandler, 'utf-8');
                     } else if (req.url.indexOf('/css/') >= 0) {
@@ -75,6 +78,18 @@ class app {
                     res.write('Request Received. ');
                     res.end('Thank you!');
           });
+     }
+
+     loadData(req, res) {
+          let data = this.dataHandler.loadData();
+         console.log(data[0]);
+          res.writeHead(200, {'content-type': 'application/json'});
+          res.end(data);
+
+          /*req.on(end, function() {
+               res.writeHead(200, {'content-type': 'application/json'});
+               res.end(JSON.stringify(data));
+          });*/
      }
 }
 

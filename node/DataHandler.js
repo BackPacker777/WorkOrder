@@ -19,8 +19,14 @@ class DataHandler {
           DB.insert(data);
      }
 
-     getData(data) {
+     queryData(data) {
           DB.find(data);
+     }
+
+     loadData() {
+          DB.find({}, function(err, leData) {
+               return leData;
+          });
      }
 }
 

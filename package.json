@@ -24,7 +24,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "body-parser": "latest",
     "eslint": "latest",
     "formidable": "latest",
     "ejs": "latest",
