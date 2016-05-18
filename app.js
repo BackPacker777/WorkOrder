@@ -35,6 +35,8 @@ class app {
                          }
                     };
 
+                    // console.log(req.headers);
+
                     if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
                          if (req.method == 'POST') {
                               this.getFormData(req, res);
@@ -43,8 +45,7 @@ class app {
                               res.writeHead(405, "Method not supported", { 'Content-Type': 'text/html' });
                               res.end('<html><head><title>405 - Method not supported</title></head><body><h1>Method not supported.</h1></body></html>');
                          }
-                    } else if (req.headers['x-requested-LOAD'] === 'XMLHttpRequest2') {
-                         console.log('-= LOADING DATA =-');
+                    } else if (req.headers['x-requested-load'] === 'XMLHttpRequest2') {
                          this.loadData(req, res);
                     } else if (req.url.indexOf('/javascripts/') >= 0) {
                          this.render(req.url.slice(1), 'application/ecmascript', httpHandler, 'utf-8');
@@ -55,7 +56,7 @@ class app {
                     } else {
                          this.render('public/views/index.ejs', 'text/html', httpHandler, 'utf-8');
                     }
-               }).listen(PORT, _ => console.log('-= Francis Server Listening at http://127.0.0.1:' + PORT + ' =-'));
+               }).listen(PORT, _ => console.log('-= Work Order Server Listening at http://127.0.0.1:' + PORT + ' =-'));
      }
 
      render(path, contentType, callback, encoding) {
@@ -81,15 +82,12 @@ class app {
      }
 
      loadData(req, res) {
-          let data = this.dataHandler.loadData();
-         console.log(data[0]);
-          res.writeHead(200, {'content-type': 'application/json'});
-          res.end(data);
-
-          /*req.on(end, function() {
+          this.dataHandler.loadData(function(docs) {
+               // console.log(docs[0].roomNumber);
                res.writeHead(200, {'content-type': 'application/json'});
-               res.end(JSON.stringify(data));
-          });*/
+               let jsonDocs = JSON.stringify(docs); //http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
+               res.end(jsonDocs);
+          });
      }
 }
 

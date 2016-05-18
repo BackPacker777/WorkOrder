@@ -9,6 +9,7 @@
 
 const DATASTORE = require('nedb'),
 	DB = new DATASTORE({ filename: './data/workorder_db.json', autoload: true });
+     this.data = [];
 
 class DataHandler {
 	constructor() {
@@ -23,9 +24,9 @@ class DataHandler {
           DB.find(data);
      }
 
-     loadData() {
-          DB.find({}, function(err, leData) {
-               return leData;
+     loadData(callback) {
+          DB.find({}, function(err, docs) {
+               callback(docs);
           });
      }
 }

@@ -63,13 +63,13 @@
 	     }
 
 	     static handleForm() {
+	          document.getElementById('result').style.display = 'none'; //http://stackoverflow.com/questions/133051/what-is-the-difference-between-visibilityhidden-and-displaynone
 	          document.getElementById('submit').addEventListener('click', function(event) {
 	               let data = new FormData(document.querySelector('form')); // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
 	               let bustCache = '?' + new Date().getTime();
 	               const XHR = new XMLHttpRequest();
 	               XHR.onload = function() {
 	                    if (XHR.readyState == 4 && XHR.status == 200) {
-	                         document.getElementById('result').style.display = 'none';
 	                         document.getElementById('result').innerHTML = XHR.responseText;
 	                         main.fade('in', 'result');
 	                         main.fade('out', 'result');
@@ -90,18 +90,19 @@
 	          const XHR = new XMLHttpRequest();
 	          XHR.onload = function() {
 	               if (XHR.readyState == 4 && XHR.status == 200) {
-	                    let response = JSON.parse(XHR.responseText);
-	                    console.log(response);
-	                    document.getElementsByTagName('building').value = response.building;
+	                    // let response = JSON.parse(XHR.responseText);
+	                    let ajaxResponse = JSON.parse(XHR.responseText);  //http://stackoverflow.com/questions/32376010/how-to-convert-json-stringify-to-object-javascript
+	                    document.getElementById('building').value = ajaxResponse[0].building;  //http://stackoverflow.com/questions/10958112/select-object-value
+	                    document.getElementById('roomNumber').value = ajaxResponse[0].roomNumber;
+	                    document.getElementById('submitter').value = ajaxResponse[0].submitter;
+	                    document.getElementById('problemDesc').value = ajaxResponse[0].problemDesc;
+	                    document.getElementById('assigned').value = ajaxResponse[0].assigned;
+	                    document.getElementById('status').value = ajaxResponse[0].status;
 	               }
 	          };
-	          XHR.open('POST', 'http://10.6.3.2:1337', true);
+	          XHR.open('POST', 'http://127.0.0.1:1337', true);
 	          XHR.setRequestHeader('X-Requested-LOAD', 'XMLHttpRequest2');
 	          XHR.send();
-
-	          /*window.addEventListener('load', function(event) {
-
-	          });*/
 	     }
 	}
 

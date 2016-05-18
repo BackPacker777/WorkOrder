@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="small-2 columns">
                     <span class="label">Building</span>
-                    <select name="building">
+                    <select name="building" id="building">
                         <option></option>
                         <option value="central">Central</option>
                         <option value="lincoln">Lincoln</option>
@@ -30,64 +30,73 @@
                 </div>
                 <div class="small-2 columns">
                     <span class="label">Room #</span>
-                    <input type="number" name="roomNumber" maxlength="3">
+                    <input type="number" name="roomNumber" id="roomNumber" maxlength="3">
                 </div>
                 <div class="small-3 columns end">
                     <span class="label">Submitter</span>
-                    <input type="text" name="submitter">
+                    <input type="text" name="submitter" id="submitter">
                 </div>
             </div>
             <div class="row">
                 <div class="small-7 columns end">
                     <span class="label">Description of problem</span>
-                    <textarea name="problemDesc" rows="5" cols="30"></textarea>
+                    <textarea name="problemDesc" id="problemDesc" rows="5" cols="30"></textarea>
                 </div>
             </div>
             <br>
             <div class="row">
-                <div class="small-2 columns">
-                    <i class="fa fa-fast-backward fa-3x"></i>
+                <div class="small-1 columns">
+                    <i class="fa fa-fast-backward button"></i>
                 </div>
-                <div class="small-2 columns">
-                    <i class="fa fa-caret-left fa-3x"></i>
+                <div class="small-1 columns">
+                    <i class="fa fa-caret-left button"></i>
                 </div>
-                <div class="small-2 columns">
-                    <i class="fa fa-caret-right fa-3x"></i>
+                <div class="small-1 columns" style="color: white">
+                    <span>.</span>
                 </div>
-                <div class="small-2 columns end">
-                    <i class="fa fa-fast-forward fa-3x"></i>
+                <div class="small-1 columns">
+                    <i class="fa fa-star button" id="newSubmission"></i>
+                </div>
+                <div class="small-1 columns" style="color: white">
+                    <span>.</span>
+                </div>
+                <div class="small-1 columns">
+                    <i class="fa fa-caret-right button"></i>
+                </div>
+                <div class="small-1 columns end">
+                    <i class="fa fa-fast-forward button"></i>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="small-7 columns end">
-                    <span class="small-12 columns button" id="submit">SUBMIT</span>
+                    <span class="small-12 columns button success" id="submit">SUBMIT</span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <h4 id="result"></h4>
+            </div>
+            <div class="row">
+                <div class="small-1 columns">
+                    <span class="label">Completed</span>
+                    <input type="checkbox" name="completed" id="completed">
+                </div>
+                <div class="small-2 columns">
+                    <span class="label">Assignment:</span>
+                    <select name="assigned" id="assigned">
+                        <option></option>
+                        <option value="cody">Cody</option>
+                        <option value="ben">Ben</option>
+                        <option value="hb">Howard</option>
+                    </select>
+                </div>
+                <div class="small-4 columns end">
+                    <span class="label">Status</span>
+                    <textarea name="status" id="status" rows="1"></textarea>
                 </div>
             </div>
         </form>
-        <br>
-        <div class="row">
-            <h4 id="result"></h4>
-        </div>
-        <div class="row">
-            <div class="small-1 columns">
-                <span class="label">Completed</span>
-                <input type="checkbox" name="completed">
-            </div>
-            <div class="small-2 columns">
-                <span class="label">Assignment:</span>
-                <select name="assigned">
-                    <option></option>
-                    <option value="cody">Cody</option>
-                    <option value="ben">Ben</option>
-                    <option value="hb">Howard</option>
-                </select>
-            </div>
-            <div class="small-4 columns end">
-                <span class="label">Status</span>
-                <textarea name="status" rows="1"></textarea>
-            </div>
-        </div>
     </div>
     <div class="tabs-panel" id="panel2">
         <% include public/views/list.ejs %>
