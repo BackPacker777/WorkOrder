@@ -46,7 +46,7 @@ class app {
                               res.end('<html><head><title>405 - Method not supported</title></head><body><h1>Method not supported.</h1></body></html>');
                          }
                     } else if (req.headers['x-requested-load'] === 'XMLHttpRequest2') {
-                         this.loadData(req, res);
+                         this.loadData(res);
                     } else if (req.url.indexOf('/javascripts/') >= 0) {
                          this.render(req.url.slice(1), 'application/ecmascript', httpHandler, 'utf-8');
                     } else if (req.url.indexOf('/css/') >= 0) {
@@ -74,16 +74,15 @@ class app {
               }).on('error', function(err) {
                    next(err);
               }).on('end', _ => {
-                    this.dataHandler.addData(formData);
+                    this.dataHandler.queryData(formData);
                     res.writeHead(200, {'content-type': 'text/plain'});
                     res.write('Request Received. ');
                     res.end('Thank you!');
           });
      }
 
-     loadData(req, res) {
+     loadData(res) {
           this.dataHandler.loadData(function(docs) {
-               // console.log(docs[0].roomNumber);
                res.writeHead(200, {'content-type': 'application/json'});
                let jsonDocs = JSON.stringify(docs); //http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
                res.end(jsonDocs);

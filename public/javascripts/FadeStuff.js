@@ -16,7 +16,7 @@ class FadeStuff {
         let div = document.getElementById(this.fadeWhat);
         if (this.direction == "in") {
             div.style.opacity = 0;
-            div.style.display = "block";
+            div.style.visibility = 'visible';
             (function fade() {
                 let val = parseFloat(div.style.opacity);
                 if (!((val += .01) >= 1)) {
@@ -28,7 +28,7 @@ class FadeStuff {
             div.style.opacity = 1;
             (function fade() {
                 if ((div.style.opacity -= .01) <= 0) {
-                    div.style.display = "none";
+                    div.style.visibility = 'hidden';
                 } else {
                     requestAnimationFrame(fade);
                 }

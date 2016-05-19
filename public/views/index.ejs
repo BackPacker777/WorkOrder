@@ -75,7 +75,9 @@
             </div>
             <br>
             <div class="row">
-                <h4 id="result"></h4>
+                <div class="small-7 columns end">
+                    <h4 id="result">::</h4>
+                    </div>
             </div>
             <div class="row">
                 <div class="small-1 columns">
@@ -96,6 +98,7 @@
                     <textarea name="status" id="status" rows="1"></textarea>
                 </div>
             </div>
+            <input type="hidden" name="id" id="id">
         </form>
     </div>
     <div class="tabs-panel" id="panel2">
@@ -108,10 +111,5 @@
 <script src="public/javascripts/libraries/foundation.min.js"></script>
 <script src="public/javascripts/bundle.js"></script>
 <script src="https://use.fontawesome.com/4270d89823.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $(document).foundation();
-    });
-</script>
 
 <% include public/views/footer.ejs %>

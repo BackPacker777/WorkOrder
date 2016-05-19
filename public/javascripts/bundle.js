@@ -63,7 +63,7 @@
 	     }
 
 	     static handleForm() {
-	          document.getElementById('result').style.display = 'none'; //http://stackoverflow.com/questions/133051/what-is-the-difference-between-visibilityhidden-and-displaynone
+	          // document.getElementById('result').style.display = 'none'; //http://stackoverflow.com/questions/133051/what-is-the-difference-between-visibilityhidden-and-displaynone
 	          document.getElementById('submit').addEventListener('click', function(event) {
 	               let data = new FormData(document.querySelector('form')); // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
 	               let bustCache = '?' + new Date().getTime();
@@ -90,7 +90,6 @@
 	          const XHR = new XMLHttpRequest();
 	          XHR.onload = function() {
 	               if (XHR.readyState == 4 && XHR.status == 200) {
-	                    // let response = JSON.parse(XHR.responseText);
 	                    let ajaxResponse = JSON.parse(XHR.responseText);  //http://stackoverflow.com/questions/32376010/how-to-convert-json-stringify-to-object-javascript
 	                    document.getElementById('building').value = ajaxResponse[0].building;  //http://stackoverflow.com/questions/10958112/select-object-value
 	                    document.getElementById('roomNumber').value = ajaxResponse[0].roomNumber;
@@ -98,6 +97,7 @@
 	                    document.getElementById('problemDesc').value = ajaxResponse[0].problemDesc;
 	                    document.getElementById('assigned').value = ajaxResponse[0].assigned;
 	                    document.getElementById('status').value = ajaxResponse[0].status;
+	                    document.getElementById('id').value = ajaxResponse[0]._id;
 	               }
 	          };
 	          XHR.open('POST', 'http://127.0.0.1:1337', true);
@@ -108,6 +108,9 @@
 
 	window.addEventListener('load', function() {
 	     new main();
+	     $(function () {
+	          $(document).foundation();
+	     });
 	});
 
 /***/ },
@@ -132,7 +135,7 @@
 	        let div = document.getElementById(this.fadeWhat);
 	        if (this.direction == "in") {
 	            div.style.opacity = 0;
-	            div.style.display = "block";
+	            div.style.visibility = 'visible';
 	            (function fade() {
 	                let val = parseFloat(div.style.opacity);
 	                if (!((val += .01) >= 1)) {
@@ -144,7 +147,7 @@
 	            div.style.opacity = 1;
 	            (function fade() {
 	                if ((div.style.opacity -= .01) <= 0) {
-	                    div.style.display = "none";
+	                    div.style.visibility = 'hidden';
 	                } else {
 	                    requestAnimationFrame(fade);
 	                }
