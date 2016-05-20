@@ -6,17 +6,21 @@
 	</div>
 </div>
 <br>
-<ul class="tabs" data-tabs id="wo-tabs">
-    <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Entry/Update</a></li>
-    <li class="tabs-title"><a href="#panel2">List</a></li>
-</ul>
+<div class="row">
+    <div class="small-7 columns">
+        <ul class="tabs" data-tabs id="wo-tabs">
+            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Entry/Update</a></li>
+            <li class="tabs-title"><a href="#panel2">List</a></li>
+        </ul>
+    </div>
+</div>
 <div class="tabs-content" data-tabs-content="wo-tabs">
     <div class="tabs-panel is-active" id="panel1">
         <form id="theForm">
             <div class="row">
                 <div class="small-2 columns">
                     <span class="label">Building</span>
-                    <select name="building" id="building">
+                    <select name="building" id="building" required>
                         <option></option>
                         <option value="central">Central</option>
                         <option value="lincoln">Lincoln</option>
@@ -30,7 +34,7 @@
                 </div>
                 <div class="small-2 columns">
                     <span class="label">Room #</span>
-                    <input type="number" name="roomNumber" id="roomNumber" maxlength="3">
+                    <input type="number" name="roomNumber" id="roomNumber" maxlength="3" required>
                 </div>
                 <div class="small-3 columns end">
                     <span class="label">Submitter</span>
@@ -46,10 +50,10 @@
             <br>
             <div class="row">
                 <div class="small-1 columns">
-                    <i class="fa fa-fast-backward button"></i>
+                    <i class="fa fa-fast-backward button" id="home"></i>
                 </div>
                 <div class="small-1 columns">
-                    <i class="fa fa-caret-left button"></i>
+                    <i class="fa fa-caret-left button" id="back"></i>
                 </div>
                 <div class="small-1 columns" style="color: white">
                     <span>.</span>
@@ -61,10 +65,10 @@
                     <span>.</span>
                 </div>
                 <div class="small-1 columns">
-                    <i class="fa fa-caret-right button"></i>
+                    <i class="fa fa-caret-right button" id="forward"></i>
                 </div>
                 <div class="small-1 columns end">
-                    <i class="fa fa-fast-forward button"></i>
+                    <i class="fa fa-fast-forward button" id="end"></i>
                 </div>
             </div>
             <br>
@@ -76,8 +80,8 @@
             <br>
             <div class="row">
                 <div class="small-7 columns end">
-                    <h4 id="result">::</h4>
-                    </div>
+                    <h4 id="result">&nbsp</h4>
+                </div>
             </div>
             <div class="row">
                 <div class="small-1 columns">

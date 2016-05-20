@@ -16,34 +16,30 @@ class DataHandler {
           DB.loadDatabase();
 	}
 
-     addData(data) {
-          console.log('Adding Data');
-          DB.insert(data);
+     loadData(callback) {
+          DB.find({}, (err, docs) => {
+               if (docs.length != null) {
+                    callback(docs);
+               }
+          });
      }
 
      updateData(data) {
-          console.log('Updating Data');
-          console.log(`DataHandler output: ${data.id}`);
-          /*DB.update({ _id: data.id }
-               , { $set: { 'building': data.building
-                    , 'roomNumber': data.roomNumber
-                    , 'submitter': data.submitter
-                    , 'problemDesc': data.problemDesc
-                    , 'assigned': data.assigned
-                    , 'completed': data.completed
-                    , 'status': data.status }, function(err, numReplaced) {
-
-               }});*/
-          DB.update({ _id: data.id }, { building: data.building }
-               , { roomNumber: data.roomNumber}
-               , { submitter: data.submitter }
-               , { problemDesc: data.problemDesc }
-               , { assigned: data.assigned }
-               , { completed: data.completed }
-               , { status: data.status }
-               , {}, function(err, numReplaced) {}
-          );
+          console.log(`UPDATING`);
+          DB.update({ _id: data.id }, { building: data.building
+               , roomNumber: data.roomNumber
+               , submitter: data.submitter
+               , problemDesc: data.problemDesc
+               , assigned: data.assigned
+               , completed: data.completed
+               , status: data.status
+          }, { upsert: true });
      }
+
+     addData(data) {
+          console.log(`ADDING`);
+          DB.insert(data);
+      }
 
      /*queryData(data) { // keep as a reference for method below
           const THAT = this; //change to arrow function later
@@ -57,20 +53,18 @@ class DataHandler {
           });
      }*/
 
+     /*removeData(data) {
+          DB.remove({ _id: data.id }, {});
+     }*/
+
      queryData(data) {
+          
           DB.findOne({ _id: data.id }, (err, docs) => {
                if (docs == null) {
                     this.addData(data);
                } else {
                     this.updateData(data);
                }
-          });
-     }
-
-     loadData(callback) {
-          DB.find({}, function(err, docs) {
-               if (docs.length != null)
-               callback(docs);
           });
      }
 }

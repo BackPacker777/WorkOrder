@@ -20,7 +20,7 @@ class app {
                EJS = require('ejs'),
                PORT = 1337,
                SERVER = HTTP.createServer((req, res) => {
-                    let httpHandler = function(err, str, contentType) {  //http://stackoverflow.com/questions/336859/var-functionname-function-vs-function-functionname
+                    let httpHandler = (err, str, contentType) => {  //http://stackoverflow.com/questions/336859/var-functionname-function-vs-function-functionname
                          if (err) {
                               res.writeHead(500, { 'Content-Type': 'text/plain' });
                               res.end('An error has occurred: ' + err.message);
@@ -61,7 +61,7 @@ class app {
 
      render(path, contentType, callback, encoding) {
           const FS = require('fs');
-		FS.readFile(__dirname + '/' + path, encoding ? encoding : 'utf-8', function(err, str) { // ternary
+		FS.readFile(__dirname + '/' + path, encoding ? encoding : 'utf-8', (err, str) => { // ternary
 			callback(err, str, contentType);  // http://stackoverflow.com/questions/8131344/what-is-the-difference-between-dirname-and-in-node-js
 		});
      }
@@ -69,9 +69,9 @@ class app {
      getFormData(req, res) {
           const FORMIDABLE = require('formidable');  // https://docs.nodejitsu.com/articles/HTTP/servers/how-to-handle-multipart-form-data
           let formData = {};
-          new FORMIDABLE.IncomingForm().parse(req).on('field', function(field, name) {
+          new FORMIDABLE.IncomingForm().parse(req).on('field', (field, name) => {
                    formData[field] = name;
-              }).on('error', function(err) {
+              }).on('error', (err) => {
                    next(err);
               }).on('end', _ => {
                     this.dataHandler.queryData(formData);
@@ -82,9 +82,9 @@ class app {
      }
 
      loadData(res) {
-          this.dataHandler.loadData(function(docs) {
+          this.dataHandler.loadData((docs) => {
                res.writeHead(200, {'content-type': 'application/json'});
-               let jsonDocs = JSON.stringify(docs); //http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
+               let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
                res.end(jsonDocs);
           });
      }
