@@ -48,7 +48,7 @@
 	 *   @author Bates, Howard [ hbates@northmen.org ]
 	 *   @version 0.0.1
 	 *   @summary http server: Work order app || Created: 05.11.2016
-	 *   @todo fix updating; completed button; create work list
+	 *   @todo add newly input WO's to live JSON; create work list; dim submit on DOM load
 	 */
 
 	"use strict";
@@ -61,51 +61,44 @@
 	          this.counter = 0;
 	          this.recordCount = 0;
 	          main.fade('in', 'title');
-	          this.loadData();this.handleForm();
+	          this.processForm(false);
+	          // this.loadData();
+	          this.handleSubmit();
 	          this.newEntry();
 	          this.goForward();
 	          this.goBack();
 	     }
 
-	     handleForm() {
-	          // document.getElementById('result').style.display = 'none'; //http://stackoverflow.com/questions/133051/what-is-the-difference-between-visibilityhidden-and-displaynone
-	          document.getElementById('submit').addEventListener('click', (event) => {
-	               let data = new FormData(document.querySelector('form')); // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
-	               let bustCache = '?' + new Date().getTime();
-	               const XHR = new XMLHttpRequest();
-	               document.getElementById('theForm').reset();
-	               XHR.onload = () => {
-	                    if (XHR.readyState == 4 && XHR.status == 200) {
-	                         this.workList = JSON.parse(XHR.responseText);
-	                         this.recordCount = Object.keys(this.workList).length;
-	                         document.getElementById('result').innerHTML = XHR.responseText;
-	                         main.fade('in', 'result');
-	                         main.fade('out', 'result');
-	                    }
-	               };
-	               XHR.open('POST', event.target.dataset.url + bustCache, true);
-	               XHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-	               XHR.send(data);
-	          });
-	     }
-
-	     static fade(direction, fadeWhat) {
-	          new FADE(direction, fadeWhat).doFade();
-	     }
-
-	     loadData() {
+	     processForm(isSubmitButtonClick) {
+	          console.log(`isSubmitButtonClick = ${isSubmitButtonClick}`);
+	          let bustCache = '?' + new Date().getTime();
 	          const XHR = new XMLHttpRequest();
-	          XHR.open('POST', document.url, true);
-	          XHR.setRequestHeader('X-Requested-LOAD', 'XMLHttpRequest2');
-	          XHR.send();
+	          XHR.open('POST', document.url  + bustCache, true);
+	          if (isSubmitButtonClick === true) {
+	               XHR.setRequestHeader('X-Requested-LOAD', 'XMLHttpRequest1');
+	               let data = new FormData(document.querySelector('form')); // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+	               XHR.send(data);
+	          } else {
+	               XHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	               XHR.send();
+	          }
 	          XHR.onload = () => {
 	               if (XHR.readyState == 4 && XHR.status == 200) {
-	                    this.workList = JSON.parse(XHR.responseText); //http://stackoverflow.com/questions/32376010/how-to-convert-json-stringify-to-object-javascript
+	                    this.workList = JSON.parse(XHR.responseText);
 	                    this.recordCount = Object.keys(this.workList).length;
-	                    console.log(`COUNTER: ${this.counter}  RECORD_COUNT: ${this.recordCount}`);
+	                    console.log(`Record count: ${this.recordCount}`);
+	                    document.getElementById('result').innerHTML = 'Request received. Thank you';
+	                    main.fade('in', 'result');
+	                    main.fade('out', 'result');
 	                    this.putData();
 	               }
 	          };
+	     }
+
+	     handleSubmit() {
+	          document.getElementById('submit').addEventListener('click', () => {
+	               this.processForm(true);
+	          });
 	     }
 
 	     putData() {
@@ -121,6 +114,7 @@
 	     newEntry() {
 	          document.getElementById('newSubmission').addEventListener('click', () => {
 	               document.getElementById('id').value = null;
+	               delete this.workList[this.counter].id;
 	               document.getElementById('theForm').reset();
 	          });
 	     }
@@ -129,7 +123,7 @@
 	          document.getElementById('forward').addEventListener('click', () => {
 	               this.counter++;
 	               if (this.counter < this.recordCount) {
-	                    console.log(`COUNTER: ${this.counter}  RECORD_COUNT: ${this.recordCount}`);
+	                    console.log(`COUNTER: ${this.counter + 1}  RECORD_COUNT: ${this.recordCount}`);
 	                    this.putData();
 	               } else {
 	                    this.counter = this.recordCount - 1;
@@ -141,12 +135,16 @@
 	          document.getElementById('back').addEventListener('click', () => {
 	               this.counter--;
 	               if (this.counter >= 0) {
-	                    console.log(`COUNTER: ${this.counter}  RECORD_COUNT: ${this.recordCount}`);
+	                    console.log(`COUNTER: ${this.counter + 1}  RECORD_COUNT: ${this.recordCount}`);
 	                    this.putData();
 	               } else {
 	                    this.counter = 0;
 	               }
 	          });
+	     }
+
+	     static fade(direction, fadeWhat) {
+	          new FADE(direction, fadeWhat).doFade();
 	     }
 	}
 

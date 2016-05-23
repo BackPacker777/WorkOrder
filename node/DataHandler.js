@@ -37,6 +37,7 @@ class DataHandler {
      }
 
      addData(data) {
+          delete data.id;  // remove id field out of JSON parameter
           console.log(`ADDING`);
           DB.insert(data);
       }
@@ -58,7 +59,6 @@ class DataHandler {
      }*/
 
      queryData(data) {
-          
           DB.findOne({ _id: data.id }, (err, docs) => {
                if (docs == null) {
                     this.addData(data);
