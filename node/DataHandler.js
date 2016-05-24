@@ -54,10 +54,6 @@ class DataHandler {
           });
      }*/
 
-     /*removeData(data) {
-          DB.remove({ _id: data.id }, {});
-     }*/
-
      queryData(data) {
           DB.findOne({ _id: data.id }, (err, docs) => {
                if (docs == null) {

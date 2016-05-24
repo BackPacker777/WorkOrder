@@ -11,8 +11,8 @@ const DATA_HANDLER = require('./node/DataHandler');
 
 class app {
      constructor() {
+          this.ejsData = null;
           this.loadServer();
-          this.dataHandler = new DATA_HANDLER();
      }
 
      loadServer() {
@@ -29,13 +29,11 @@ class app {
                               res.end(str, 'binary');
                          } else {
                               res.writeHead(200, { 'Content-Type': contentType });
-                              res.end(EJS.render(str, {  // http://stackoverflow.com/questions/4600952/node-js-ejs-example
+                              res.end(EJS.render(str, this.ejsData, {  // http://stackoverflow.com/questions/4600952/node-js-ejs-example
                                    filename: 'index.ejs'
                               }));
                          }
                     };
-
-                    // console.log(req.headers);
 
                     if (req.method == 'POST') {
                          if (req.headers['x-requested-with'] === 'XMLHttpRequest') {
@@ -67,30 +65,27 @@ class app {
      }
 
      loadData(req, res, whichAjax) {
-          if (whichAjax === 0) {
-              console.log(`whichAjax = ${whichAjax}`);
-              this.dataHandler.loadData((docs) => {
-                  let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
-                  res.writeHead(200, {'content-type': 'application/json'});
-                  res.end(jsonDocs);
-              });
-          } else if (whichAjax === 1) {
-               console.log(`whichAjax = ${whichAjax}`);
+          if (whichAjax === 1) {
                const FORMIDABLE = require('formidable');  // https://docs.nodejitsu.com/articles/HTTP/servers/how-to-handle-multipart-form-data
                let formData = {};
                new FORMIDABLE.IncomingForm().parse(req).on('field', (field, name) => {
                     formData[field] = name;
-                    }).on('error', (err) => {
-                         next(err);
-                    }).on('end', _ => {
-                       this.dataHandler.queryData(formData);
-                       this.dataHandler.loadData((docs) => {
-                           let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
-                           res.writeHead(200, {'content-type': 'application/json'});
-                           res.end(jsonDocs);
-                       });
+               }).on('error', (err) => {
+                    next(err);
+               }).on('end', () => {
+                    new DATA_HANDLER().queryData(formData);
                });
           }
+          new DATA_HANDLER().loadData((docs) => {
+               let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
+               res.writeHead(200, {'content-type': 'application/json'});
+               res.end(jsonDocs);
+               this.setEjsData(docs);
+          });
+     }
+
+     setEjsData(docs) {
+          this.ejsData = docs;
      }
 }
 
