@@ -101,6 +101,7 @@
 	          document.getElementById('submit').addEventListener('click', () => {
 	               main.setButton(false);
 	               this.processForm(true, false);
+	               window.location.reload(true);
 	          });
 	     }
 

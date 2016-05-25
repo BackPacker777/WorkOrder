@@ -14,7 +14,7 @@ class app {
           this.ejsData = null;
           this.nedbData = new DATA_HANDLER();
           this.nedbData.loadData((docs) => {
-               this.setEjsData(docs);
+               this.ejsData = docs;
           });
           this.loadServer();
      }
@@ -87,12 +87,8 @@ class app {
                let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
                res.writeHead(200, {'content-type': 'application/json'});
                res.end(jsonDocs);
-               this.setEjsData(docs);
+               this.ejsData = docs;
           });
-     }
-
-     setEjsData(docs) {
-          this.ejsData = docs;
      }
 }
 

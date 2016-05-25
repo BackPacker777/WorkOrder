@@ -7,8 +7,8 @@
 
 "use strict";
 
-const DATASTORE = require('nedb'),
-	DB = new DATASTORE({ filename: './data/workorder_db.json', autoload: true });
+const DATASTORE = require('nedb');
+let DB = new DATASTORE({ filename: './data/workorder_db.json', autoload: true });
      this.data = [];
 
 class DataHandler {
@@ -33,7 +33,8 @@ class DataHandler {
                , completed: data.completed
                , status: data.status
                , date: data.date
-          }, { upsert: true });
+          }, { upsert: true,
+               returnUpdatedDocs: true });
      }
 
      addData(data) {
