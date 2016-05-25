@@ -25,7 +25,6 @@ class DataHandler {
      }
 
      updateData(data) {
-          console.log(`UPDATING`);
           DB.update({ _id: data.id }, { building: data.building
                , roomNumber: data.roomNumber
                , submitter: data.submitter
@@ -33,12 +32,12 @@ class DataHandler {
                , assigned: data.assigned
                , completed: data.completed
                , status: data.status
+               , date: data.date
           }, { upsert: true });
      }
 
      addData(data) {
           delete data.id;  // remove id field out of JSON parameter
-          console.log(`ADDING`);
           DB.insert(data);
       }
 

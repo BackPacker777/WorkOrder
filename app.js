@@ -1,8 +1,8 @@
 /**
  *   @author Bates, Howard [ hbates@northmen.org ]
  *   @version 0.0.1
- *   @summary http server: XX || Created: X.XX.2016
- *   @todo Everything!
+ *   @summary http server: Work order app || Created: 05.11.2016
+ *   @todo Add newly input WO's to live JSON;
  */
 
 "use strict";
@@ -12,6 +12,10 @@ const DATA_HANDLER = require('./node/DataHandler');
 class app {
      constructor() {
           this.ejsData = null;
+          this.nedbData = new DATA_HANDLER();
+          this.nedbData.loadData((docs) => {
+               this.setEjsData(docs);
+          });
           this.loadServer();
      }
 
@@ -25,13 +29,16 @@ class app {
                               res.writeHead(500, { 'Content-Type': 'text/plain' });
                               res.end('An error has occurred: ' + err.message);
                          } else if (contentType.indexOf('image') >= 0) {
-                              res.writeHead(200, { 'Content-Type': contentType });
+                              res.writeHead(200, {'Content-Type': contentType});
                               res.end(str, 'binary');
+                         } else if (contentType.indexOf('html') >= 0) {
+                              res.writeHead(200, { 'Content-Type': contentType });
+                              res.end(EJS.render(str, {
+                                   data: this.ejsData,
+                                   filename: 'index.ejs' }));
                          } else {
                               res.writeHead(200, { 'Content-Type': contentType });
-                              res.end(EJS.render(str, this.ejsData, {  // http://stackoverflow.com/questions/4600952/node-js-ejs-example
-                                   filename: 'index.ejs'
-                              }));
+                              res.end(str, 'utf-8');
                          }
                     };
 
@@ -59,9 +66,9 @@ class app {
 
      render(path, contentType, callback, encoding) {
           const FS = require('fs');
-		FS.readFile(__dirname + '/' + path, encoding ? encoding : 'utf-8', (err, str) => { // ternary
-			callback(err, str, contentType);  // http://stackoverflow.com/questions/8131344/what-is-the-difference-between-dirname-and-in-node-js
-		});
+          FS.readFile(__dirname + '/' + path, encoding ? encoding : 'utf-8', (err, str) => { // ternary
+               callback(err, str, contentType);  // http://stackoverflow.com/questions/8131344/what-is-the-difference-between-dirname-and-in-node-js
+          });
      }
 
      loadData(req, res, whichAjax) {
@@ -73,10 +80,10 @@ class app {
                }).on('error', (err) => {
                     next(err);
                }).on('end', () => {
-                    new DATA_HANDLER().queryData(formData);
+                    this.nedbData.queryData(formData);
                });
           }
-          new DATA_HANDLER().loadData((docs) => {
+          this.nedbData.loadData((docs) => {
                let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
                res.writeHead(200, {'content-type': 'application/json'});
                res.end(jsonDocs);

@@ -1,7 +1,27 @@
 <div class="row">
     <div class="small-12 columns">
+        <h4>Current Work:</h4>
         <table>
-
+            <% if (data.length > 0) { %>
+            <tr>
+                <td><strong>Date</strong></td>
+                <td><strong>Building</strong></td>
+                <td><strong>Room #</strong></td>
+                <td><strong>Challenge</strong></td>
+                <td><strong>Assignment</strong></td>
+                <td><strong>Status</strong></td>
+            </tr>
+            <% for (let i = 0; i < data.length; i++) { %>
+            <tr>
+                <td><%= data[i].date %></td>
+                <td><%= data[i].building %></td>
+                <td><%= data[i].roomNumber %></td>
+                <td><%= data[i].problemDesc %></td>
+                <td><%= data[i].assigned %></td>
+                <td><%= data[i].status %></td>
+            </tr>
+            <% } %>
+            <% } %>
         </table>
     </div>
 </div>

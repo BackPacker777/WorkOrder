@@ -2,7 +2,7 @@
  *   @author Bates, Howard [ hbates@northmen.org ]
  *   @version 0.0.1
  *   @summary http server: Work order app || Created: 05.11.2016
- *   @todo Add newly input WO's to live JSON; create work list; dim submit on DOM load
+ *   @todo Add newly input WO's to live JSON;
  */
 
 "use strict";
@@ -15,6 +15,9 @@ class main {
           this.counter = 0;
           this.recordCount = 0;
           main.fade('in', 'title');
+          main.setButton(false);
+          main.setDate();
+          main.detectEdit();
           this.processForm(false, true);
           this.handleSubmit();
           this.newEntry();
@@ -23,7 +26,6 @@ class main {
      }
 
      processForm(isSubmitButtonClick, calledFromConstructor) {
-          console.log(`isSubmitButtonClick = ${isSubmitButtonClick}`);
           let bustCache = '?' + new Date().getTime();
           const XHR = new XMLHttpRequest();
           XHR.open('POST', document.url  + bustCache, true);
@@ -39,7 +41,6 @@ class main {
                if (XHR.readyState == 4 && XHR.status == 200) {
                     this.workList = JSON.parse(XHR.responseText);
                     this.recordCount = Object.keys(this.workList).length;
-                    // console.log(`Record count: ${this.recordCount}`);
                     if (calledFromConstructor === false) {
                          document.getElementById('result').innerHTML = 'Request received. Thank you';
                          main.fade('in', 'result');
@@ -52,6 +53,7 @@ class main {
 
      handleSubmit() {
           document.getElementById('submit').addEventListener('click', () => {
+               main.setButton(false);
                this.processForm(true, false);
           });
      }
@@ -78,7 +80,6 @@ class main {
           document.getElementById('forward').addEventListener('click', () => {
                this.counter++;
                if (this.counter < this.recordCount) {
-                    // console.log(`COUNTER: ${this.counter + 1}  RECORD_COUNT: ${this.recordCount}`);
                     this.putData();
                } else {
                     this.counter = this.recordCount - 1;
@@ -90,7 +91,6 @@ class main {
           document.getElementById('back').addEventListener('click', () => {
                this.counter--;
                if (this.counter >= 0) {
-                    // console.log(`COUNTER: ${this.counter + 1}  RECORD_COUNT: ${this.recordCount}`);
                     this.putData();
                } else {
                     this.counter = 0;
@@ -98,8 +98,29 @@ class main {
           });
      }
 
+     static setButton(isEnabled) {
+          if (isEnabled) {
+               document.getElementById('submit').disabled = false;
+               document.getElementById('submit').classList.remove('disabled');
+          } else {
+               document.getElementById('submit').disabled = true;
+               document.getElementById('submit').classList.add('disabled');
+          }
+     }
+
+     static detectEdit() {
+          document.getElementById('theForm').addEventListener('input', () => {
+               main.setButton(true);
+          });
+     }
+
      static fade(direction, fadeWhat) {
           new FADE(direction, fadeWhat).doFade();
+     }
+
+     static setDate() {
+          let date = new Date();
+          document.getElementById('date').value = `${date.getMonth()}/${date.getDay()}/${date.getYear()}`;
      }
 }
 

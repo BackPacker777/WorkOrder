@@ -49,32 +49,20 @@
             </div>
             <br>
             <div class="row">
-                <div class="small-1 columns">
-                    <i class="fa fa-fast-backward button" id="home"></i>
+                <div class="small-2 columns">
+                    <i class="fa fa-caret-left expanded button" id="back"></i>
                 </div>
-                <div class="small-1 columns">
-                    <i class="fa fa-caret-left button" id="back"></i>
+                <div class="small-3 columns">
+                    <i class="fa fa-star expanded button" id="newSubmission"></i>
                 </div>
-                <div class="small-1 columns" style="color: white">
-                    <span>.</span>
-                </div>
-                <div class="small-1 columns">
-                    <i class="fa fa-star button" id="newSubmission"></i>
-                </div>
-                <div class="small-1 columns" style="color: white">
-                    <span>.</span>
-                </div>
-                <div class="small-1 columns">
-                    <i class="fa fa-caret-right button" id="forward"></i>
-                </div>
-                <div class="small-1 columns end">
-                    <i class="fa fa-fast-forward button" id="end"></i>
+                <div class="small-2 columns end">
+                    <i class="fa fa-caret-right expanded button" id="forward"></i>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="small-7 columns end">
-                    <span class="small-12 columns button success" id="submit">SUBMIT</span>
+                    <span class="large expanded button success" id="submit">SUBMIT</span>
                 </div>
             </div>
             <br>
@@ -103,10 +91,11 @@
                 </div>
             </div>
             <input type="hidden" name="id" id="id">
+            <input type="hidden" name="date" id="date">
         </form>
     </div>
     <div class="tabs-panel" id="panel2">
-        <% include public/views/list-2.ejs %>
+        <% include public/views/list.ejs %>
     </div>
 </div>
 
