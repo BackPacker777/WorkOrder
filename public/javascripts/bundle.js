@@ -48,7 +48,7 @@
 	 *   @author Bates, Howard [ hbates@northmen.org ]
 	 *   @version 0.0.1
 	 *   @summary http server: Work order app || Created: 05.11.2016
-	 *   @todo Add newly input WO's to live JSON; create work list; dim submit on DOM load
+	 *   @todo Add newly input WO's to live JSON; ejs data to list tab; dim submit on DOM load
 	 */
 
 	"use strict";

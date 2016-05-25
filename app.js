@@ -12,6 +12,10 @@ const DATA_HANDLER = require('./node/DataHandler');
 class app {
      constructor() {
           this.ejsData = null;
+          this.nedbData = new DATA_HANDLER();
+          this.nedbData.loadData((docs) => {
+               this.setEjsData(docs);
+          });
           this.loadServer();
      }
 
@@ -29,9 +33,8 @@ class app {
                               res.end(str, 'binary');
                          } else {
                               res.writeHead(200, { 'Content-Type': contentType });
-                              res.end(EJS.render(str, this.ejsData, {  // http://stackoverflow.com/questions/4600952/node-js-ejs-example
-                                   filename: 'index.ejs'
-                              }));
+                              console.log(`httpHandler says: ${JSON.stringify(this.ejsData)}`);
+                              res.end(EJS.render(str, this.ejsData, {filename: 'index.ejs'}));
                          }
                     };
 
@@ -73,10 +76,10 @@ class app {
                }).on('error', (err) => {
                     next(err);
                }).on('end', () => {
-                    new DATA_HANDLER().queryData(formData);
+                    this.nedbData.queryData(formData);
                });
           }
-          new DATA_HANDLER().loadData((docs) => {
+          this.nedbData.loadData((docs) => {
                let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
                res.writeHead(200, {'content-type': 'application/json'});
                res.end(jsonDocs);
