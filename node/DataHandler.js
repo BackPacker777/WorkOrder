@@ -7,17 +7,17 @@
 
 "use strict";
 
-const DATASTORE = require('nedb');
-let DB = new DATASTORE({ filename: './data/workorder_db.json', autoload: true });
+const DATASTORE = require('nedb'),
+     DB = new DATASTORE({ filename: './data/workorder_db.json', autoload: true });
      this.data = [];
 
 class DataHandler {
 	constructor() {
-          DB.loadDatabase();
+          // DB.loadDatabase();
 	}
 
      loadData(callback) {
-          DB.find({}, (err, docs) => {
+          DB.find({ completed: '0' }, (err, docs) => {
                if (docs.length != null) {
                     callback(docs);
                }

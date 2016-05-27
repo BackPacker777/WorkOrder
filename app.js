@@ -11,18 +11,20 @@ const DATA_HANDLER = require('./node/DataHandler');
 
 class app {
      constructor() {
-          this.ejsData = null;
+          // this.nedbData = null;
+          /*this.ejsData = null;
           this.nedbData = new DATA_HANDLER();
           this.nedbData.loadData((docs) => {
                this.ejsData = docs;
-          });
+          });*/
+          this.setEjsData();
           this.loadServer();
      }
 
      loadServer() {
           const HTTP = require('http'),
                EJS = require('ejs'),
-               PORT = 1337,
+               PORT = 80,
                SERVER = HTTP.createServer((req, res) => {
                     let httpHandler = (err, str, contentType) => {  //http://stackoverflow.com/questions/336859/var-functionname-function-vs-function-functionname
                          if (err) {
@@ -80,13 +82,20 @@ class app {
                }).on('error', (err) => {
                     next(err);
                }).on('end', () => {
-                    this.nedbData.queryData(formData);
+                    // this.nedbData.queryData(formData);
+                    new DATA_HANDLER().queryData(formData);
                });
           }
-          this.nedbData.loadData((docs) => {
+          new DATA_HANDLER().loadData((docs) => {
                let jsonDocs = JSON.stringify(docs); // http://stackoverflow.com/questions/5892569/responding-with-a-json-object-in-nodejs-converting-object-array-to-json-string
                res.writeHead(200, {'content-type': 'application/json'});
                res.end(jsonDocs);
+               this.setEjsData();
+          });
+     }
+
+     setEjsData() {
+          this.ejsData = new DATA_HANDLER().loadData((docs) => {
                this.ejsData = docs;
           });
      }

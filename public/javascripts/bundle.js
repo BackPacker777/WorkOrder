@@ -69,6 +69,7 @@
 	          this.newEntry();
 	          this.goForward();
 	          this.goBack();
+	          this.openPanel2();
 	     }
 
 	     processForm(isSubmitButtonClick, calledFromConstructor) {
@@ -77,6 +78,7 @@
 	          XHR.open('POST', document.url  + bustCache, true);
 	          if (isSubmitButtonClick === true) {
 	               XHR.setRequestHeader('X-Requested-LOAD', 'XMLHttpRequest1');
+	               this.setCompleted();
 	               let data = new FormData(document.querySelector('form')); // https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
 	               XHR.send(data);
 	          } else {
@@ -103,6 +105,14 @@
 	               this.processForm(true, false);
 	               window.location.reload(true);
 	          });
+	     }
+
+	     setCompleted() {
+	          if (document.getElementById('completed').checked) {
+	               document.getElementById('completedHidden').disabled = true;
+	          } else {
+	               document.getElementById('completedHidden').disabled = false;
+	          }
 	     }
 
 	     putData() {
@@ -145,6 +155,12 @@
 	          });
 	     }
 
+	     openPanel2() {
+	          document.getElementById('panel2Title').addEventListener('click', () => {
+	               this.processForm(false, false);
+	          });
+	     }
+
 	     static setButton(isEnabled) {
 	          if (isEnabled) {
 	               document.getElementById('submit').disabled = false;
@@ -157,6 +173,9 @@
 
 	     static detectEdit() {
 	          document.getElementById('theForm').addEventListener('input', () => {
+	               main.setButton(true);
+	          });
+	          document.getElementById('completed').addEventListener('click', () => {
 	               main.setButton(true);
 	          });
 	     }

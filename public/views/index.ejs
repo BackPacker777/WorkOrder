@@ -1,8 +1,13 @@
 <% include public/views/header.ejs %>
 
 <div class="row">
+    <div class="small-12 columns">
+        <h3 id="title">Northmen Customer Services:  Technology</h3>
+    </div>
+</div>
+<div class="row">
 	<div class="small-12 columns">
-		<h2 id="title">Technology Work Order</h2>
+		<h4 id="title">Work Order System</h4>
 	</div>
 </div>
 <br>
@@ -10,7 +15,7 @@
     <div class="small-7 columns">
         <ul class="tabs" data-tabs id="wo-tabs">
             <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Entry/Update</a></li>
-            <li class="tabs-title"><a href="#panel2">List</a></li>
+            <li class="tabs-title"><a href="#panel2" id="panel2Title">List</a></li>
         </ul>
     </div>
 </div>
@@ -75,15 +80,19 @@
             <div class="row">
                 <div class="small-1 columns">
                     <span class="label">Completed</span>
-                    <input type="checkbox" name="completed" id="completed">
+                    <input type="hidden" name="completed" value="0" id="completedHidden">
+                    <input type="checkbox" name="completed" value="1" id="completed">
                 </div>
                 <div class="small-2 columns">
                     <span class="label">Assignment:</span>
                     <select name="assigned" id="assigned">
                         <option></option>
-                        <option value="cody">Cody</option>
-                        <option value="ben">Ben</option>
-                        <option value="hb">Howard</option>
+                        <option value="Cody">Cody</option>
+                        <option value="Ben">Ben</option>
+                        <option value="Howard">Howard</option>
+                        <option value="Students">Students</option>
+                        <option value="Atlas">Atlas</option>
+                        <option value="Any">Any</option>
                     </select>
                 </div>
                 <div class="small-4 columns end">
