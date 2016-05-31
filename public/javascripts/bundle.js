@@ -186,7 +186,7 @@
 
 	     static setDate() {
 	          let date = new Date();
-	          document.getElementById('date').value = `${date.getMonth()}/${date.getDay()}/${date.getYear()}`;
+	          document.getElementById('date').value = `${date.getMonth() + 1}/${date.getDate()}/${date.getYear()}`;
 	     }
 	}
 
