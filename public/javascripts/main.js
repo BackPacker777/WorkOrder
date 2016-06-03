@@ -13,17 +13,21 @@ class main {
      constructor() {
           this.workList = null;
           this.counter = 0;
-          this.recordCount = 0;
+          this.backCount = 0;
+          this.forwardCount = 0;
+          this.recordCount = null;
           main.fade('in', 'title');
           main.setButton(false);
           main.setDate();
           main.detectEdit();
           this.processForm(false, true);
           this.handleSubmit();
+          this.countWorkOrders(0);
           this.newEntry();
           this.goForward();
           this.goBack();
           this.openPanel2();
+          this.openPanel3();
      }
 
      processForm(isSubmitButtonClick, calledFromConstructor) {
@@ -49,8 +53,15 @@ class main {
                          main.fade('out', 'result');
                     }
                     this.putData();
+                    this.countWorkOrders(this.recordCount);
                }
           };
+     }
+
+     countWorkOrders(currentCount) {
+          this.forwardCount = currentCount;
+          document.getElementById('back').innerText = ` 0`;
+          document.getElementById('forward').innerText = ` ${this.forwardCount - 1}`;
      }
 
      handleSubmit() {
@@ -91,6 +102,10 @@ class main {
           document.getElementById('forward').addEventListener('click', () => {
                this.counter++;
                if (this.counter < this.recordCount) {
+                    this.backCount++;
+                    this.forwardCount--;
+                    document.getElementById('forward').innerText = ` ${this.forwardCount - 1}`;
+                    document.getElementById('back').innerText = ` ${this.backCount}`;
                     this.putData();
                } else {
                     this.counter = this.recordCount - 1;
@@ -102,6 +117,10 @@ class main {
           document.getElementById('back').addEventListener('click', () => {
                this.counter--;
                if (this.counter >= 0) {
+                    this.backCount--;
+                    this.forwardCount++;
+                    document.getElementById('back').innerText = ` ${this.backCount}`;
+                    document.getElementById('forward').innerText = ` ${this.forwardCount - 1}`;
                     this.putData();
                } else {
                     this.counter = 0;
@@ -112,6 +131,18 @@ class main {
      openPanel2() {
           document.getElementById('panel2Title').addEventListener('click', () => {
                this.processForm(false, false);
+          });
+     }
+
+     openPanel3() {
+          document.getElementById('panel3Title').addEventListener('click', () => {
+               let password = prompt(`Please enter password: `);
+               if (password == '1234') {
+                    document.getElementById('panel3Title').disabled = false;
+               } else {
+                    alert(`Incorrect password.`);
+                    document.getElementById('panel3Title').disabled = true;
+               }
           });
      }
 
@@ -140,7 +171,7 @@ class main {
 
      static setDate() {
           let date = new Date();
-          document.getElementById('date').value = `${date.getMonth() + 1}/${date.getDate()}/${date.getYear()}`;
+          document.getElementById('date').value = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
      }
 }
 
