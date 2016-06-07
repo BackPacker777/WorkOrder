@@ -17,7 +17,7 @@ class DataHandler {
 	}
 
      loadData(callback) {
-          DB.find({}, (err, docs) => {
+          DB.find({ completed: '0' }, (err, docs) => {
                if (docs.length != null) {
                     callback(docs);
                }
