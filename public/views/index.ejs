@@ -1,102 +1,119 @@
 <% include public/views/header.ejs %>
 
 <div class="row">
-	<div class="small-12 columns">
-		<h2 id="title">Technology Work Order</h2>
+    <div class="small-10 columns small-centered text-center">
+        <h3 id="title">Northmen Customer Services:  Technology</h3>
+    </div>
+</div>
+<div class="row">
+	<div class="small-10 columns small-centered text-center">
+		<h4 id="title">Work Order System</h4>
 	</div>
 </div>
 <br>
 <div class="row">
-    <div class="small-7 columns">
-        <ul class="tabs" data-tabs id="wo-tabs">
-            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Entry/Update</a></li>
-            <li class="tabs-title"><a href="#panel2">List</a></li>
-        </ul>
-    </div>
-</div>
-<div class="tabs-content" data-tabs-content="wo-tabs">
-    <div class="tabs-panel is-active" id="panel1">
-        <form id="theForm">
-            <div class="row">
-                <div class="small-2 columns">
-                    <span class="label">Building</span>
-                    <select name="building" id="building" required>
-                        <option></option>
-                        <option value="Central">Central</option>
-                        <option value="Lincoln">Lincoln</option>
-                        <option value="Ottawa">Ottawa</option>
-                        <option value="Sheridan">Sheridan</option>
-                        <option value="Montessori">Montessori</option>
-                        <option value="PHS">PHS</option>
-                        <option value="PMS">PMS</option>
-                        <option value="Spitler">Spitler</option>
-                        <option value="SFX">SFX</option>
-                    </select>
-                </div>
-                <div class="small-2 columns">
-                    <span class="label">Room #</span>
-                    <input type="number" name="roomNumber" id="roomNumber" maxlength="3" required>
-                </div>
-                <div class="small-3 columns end">
-                    <span class="label">Submitter</span>
-                    <input type="text" name="submitter" id="submitter">
-                </div>
+    <div class="small-10 columns small-centered">
+        <div class="row">
+            <div class="small-12 columns">
+                <ul class="tabs" data-tabs id="wo-tabs">
+                    <li class="tabs-title is-active"><a href="#panel1" aria-selected="true"><strong>Entry/Update</strong></a></li>
+                    <li class="tabs-title"><a href="#panel2" id="panel2Title"><strong>List</strong></a></li>
+                    <li class="tabs-title"><a href="#panel3" id="panel3Title"><strong>Legacy</strong></a></li>
+                </ul>
             </div>
-            <div class="row">
-                <div class="small-7 columns end">
-                    <span class="label">Description of problem</span>
-                    <textarea name="problemDesc" id="problemDesc" rows="5" cols="30"></textarea>
-                </div>
+        </div>
+        <div class="tabs-content" data-tabs-content="wo-tabs">
+            <div class="tabs-panel is-active" id="panel1">
+                <form id="theForm">
+                    <div class="row">
+                        <div class="small-4 columns">
+                            <span class="label">Building</span>
+                            <select name="building" id="building" required>
+                                <option></option>
+                                <option value="Central">Central</option>
+                                <option value="Lincoln">Lincoln</option>
+                                <option value="Ottawa">Ottawa</option>
+                                <option value="Sheridan">Sheridan</option>
+                                <option value="Montessori">Montessori</option>
+                                <option value="PHS">PHS</option>
+                                <option value="PMS">PMS</option>
+                                <option value="Spitler">Spitler</option>
+                                <option value="SFX">SFX</option>
+                            </select>
+                        </div>
+                        <div class="small-4 columns">
+                            <span class="label">Room #</span>
+                            <input type="number" name="roomNumber" id="roomNumber" maxlength="3" required>
+                        </div>
+                        <div class="small-4 columns end">
+                            <span class="label">Submitter</span>
+                            <input type="text" name="submitter" id="submitter">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns end">
+                            <span class="label">Description of problem</span>
+                            <textarea name="problemDesc" id="problemDesc" rows="5" cols="30"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="small-3 columns text-center">
+                            <i class="fa fa-caret-left expanded button" id="back"></i>
+                        </div>
+                        <div class="small-6 columns" id="hoverParent">
+                            <i class="fa fa-star expanded button" id="newSubmission"></i>
+                        </div>
+                        <div class="small-3 columns end">
+                            <i class="fa fa-caret-right expanded button" id="forward"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="small-12 columns end">
+                            <span class="large expanded button success" id="submit">SUBMIT</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="small-12 columns end">
+                            <h4 id="result">&nbsp</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-2 columns">
+                            <span class="label">Completed</span>
+                            <input type="hidden" name="completed" value="0" id="completedHidden">
+                            <input type="checkbox" name="completed" value="1" id="completed">
+                        </div>
+                        <div class="small-4 columns">
+                            <span class="label">Assignment:</span>
+                            <select name="assigned" id="assigned">
+                                <option></option>
+                                <option value="Cody">Cody</option>
+                                <option value="Ben">Ben</option>
+                                <option value="Howard">Howard</option>
+                                <option value="Students">Students</option>
+                                <option value="Atlas">Atlas</option>
+                                <option value="Any">Any</option>
+                            </select>
+                        </div>
+                        <div class="small-6 columns end">
+                            <span class="label">Status</span>
+                            <textarea name="status" id="status" rows="1"></textarea>
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" id="id">
+                    <input type="hidden" name="date" id="date">
+                </form>
             </div>
-            <br>
-            <div class="row">
-                <div class="small-2 columns">
-                    <i class="fa fa-caret-left expanded button" id="back"></i>
-                </div>
-                <div class="small-3 columns">
-                    <i class="fa fa-star expanded button" id="newSubmission"></i>
-                </div>
-                <div class="small-2 columns end">
-                    <i class="fa fa-caret-right expanded button" id="forward"></i>
-                </div>
+            <div class="tabs-panel" id="panel2">
+                <% include public/views/list.ejs %>
             </div>
-            <br>
-            <div class="row">
-                <div class="small-7 columns end">
-                    <span class="large expanded button success" id="submit">SUBMIT</span>
-                </div>
+            <div class="tabs-panel" id="panel3">
+                <% include public/views/legacy.ejs %>
             </div>
-            <br>
-            <div class="row">
-                <div class="small-7 columns end">
-                    <h4 id="result">&nbsp</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="small-1 columns">
-                    <span class="label">Completed</span>
-                    <input type="checkbox" name="completed" id="completed">
-                </div>
-                <div class="small-2 columns">
-                    <span class="label">Assignment:</span>
-                    <select name="assigned" id="assigned">
-                        <option></option>
-                        <option value="cody">Cody</option>
-                        <option value="ben">Ben</option>
-                        <option value="hb">Howard</option>
-                    </select>
-                </div>
-                <div class="small-4 columns end">
-                    <span class="label">Status</span>
-                    <textarea name="status" id="status" rows="1"></textarea>
-                </div>
-            </div>
-            <input type="hidden" name="id" id="id">
-            <input type="hidden" name="date" id="date">
-        </form>
-    </div>
-    <div class="tabs-panel" id="panel2">
-        <% include public/views/list.ejs %>
+        </div>
     </div>
 </div>
 

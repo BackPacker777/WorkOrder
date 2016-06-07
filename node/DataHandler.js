@@ -7,13 +7,13 @@
 
 "use strict";
 
-const DATASTORE = require('nedb');
-let DB = new DATASTORE({ filename: './data/workorder_db.json', autoload: true });
+const DATASTORE = require('nedb'),
+     DB = new DATASTORE({ filename: './data/workorder_db.json', autoload: true });
      this.data = [];
 
 class DataHandler {
 	constructor() {
-          DB.loadDatabase();
+          // DB.loadDatabase();
 	}
 
      loadData(callback) {
@@ -22,6 +22,21 @@ class DataHandler {
                     callback(docs);
                }
           });
+
+          /*if (loadWhichData === 0) {
+               DB.find({completed: '0'}, (err, docs) => {
+                    if (docs.length != null) {
+                         callback(docs);
+                    }
+               });
+          } else {
+               DB.find({completed: '1'}, (err, docs) => {
+                    console.log(`loading legacy`);
+                    if (docs.length != null) {
+                         callback(docs);
+                    }
+               });
+          }*/
      }
 
      updateData(data) {
