@@ -16,7 +16,7 @@
       <option name="outputFromStdout" value="false" />
       <option name="program" value="C:/Program Files/nodejs/webpack.cmd" />
       <option name="scopeName" value="Project Files" />
-      <option name="trackOnlyRoot" value="true" />
+      <option name="trackOnlyRoot" value="false" />
       <option name="workingDir" value="Z:\ModernWebDev\CODE\WorkOrder\public\javascripts" />
       <envs />
     </TaskOptions>

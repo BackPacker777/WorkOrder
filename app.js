@@ -12,9 +12,7 @@ const DATA_HANDLER = require('./node/DataHandler');
 class app {
      constructor() {
           this.ejsData = null;
-          this.completedData = null;
           this.setEjsData();
-          this.setCompletedData();
           this.loadServer();
      }
 
@@ -109,12 +107,6 @@ class app {
      setEjsData() {
           new DATA_HANDLER().loadData((docs) => {
                this.ejsData = docs;
-          });
-     }
-
-     setCompletedData() {
-          new DATA_HANDLER().loadData((docs) => {
-               this.completedData = docs;
           });
      }
 }

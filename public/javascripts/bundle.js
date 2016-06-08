@@ -62,7 +62,7 @@
 	          this.counter = 0;
 	          this.backCount = 0;
 	          this.forwardCount = 0;
-	          this.recordCount = null;
+	          this.recordCount = 0;
 	          main.fade('in', 'title');
 	          main.setButton(false);
 	          main.setDate();
@@ -92,10 +92,11 @@
 	          }
 	          XHR.onload = () => {
 	               if (XHR.readyState == 4 && XHR.status == 200) {
+	                    this.recordCount = 0;
 	                    let tempList = JSON.parse(XHR.responseText);
 	                    for (let i = 0; i < Object.keys(tempList).length; i++) {
+	                         this.workList.push(tempList[i]);
 	                         if (tempList[i].completed == 0) {
-	                              this.workList.push(tempList[i]);
 	                              this.recordCount++;
 	                         } else {
 	                              this.completedList.push(tempList[i]);
@@ -189,8 +190,9 @@
 	     }
 
 	     openPanel3() {
-	          document.getElementById('panel3').style.display = 'none';
+	          document.getElementById('legacyData').style.visibility = 'hidden';
 	          document.getElementById('panel3Title').addEventListener('click', () => {
+	               document.getElementById('legacyData').style.visibility = 'hidden';
 	               let password = prompt(`Please enter password: `);
 	               let bustCache = '?' + new Date().getTime();
 	               const XHR = new XMLHttpRequest();
@@ -199,10 +201,10 @@
 	               XHR.send(password);
 	               XHR.onload = () => {
 	                    if (XHR.readyState == 4 && XHR.status == 200) {
-	                         if (XHR.responseText === 'false') {
-	                              alert(`Incorrect password.`);
+	                         if (XHR.responseText === 'true') {
+	                              document.getElementById('legacyData').style.visibility = 'visible';
 	                         } else {
-	                              document.getElementById('panel3').style.display = 'block';
+	                              alert(`Incorrect password.`);
 	                         }
 	                    }
 	               }

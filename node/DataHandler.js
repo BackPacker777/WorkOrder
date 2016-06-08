@@ -17,26 +17,11 @@ class DataHandler {
 	}
 
      loadData(callback) {
-          DB.find({ completed: '0' }, (err, docs) => {
+          DB.find({}, (err, docs) => {
                if (docs.length != null) {
                     callback(docs);
                }
           });
-
-          /*if (loadWhichData === 0) {
-               DB.find({completed: '0'}, (err, docs) => {
-                    if (docs.length != null) {
-                         callback(docs);
-                    }
-               });
-          } else {
-               DB.find({completed: '1'}, (err, docs) => {
-                    console.log(`loading legacy`);
-                    if (docs.length != null) {
-                         callback(docs);
-                    }
-               });
-          }*/
      }
 
      updateData(data) {
