@@ -92,7 +92,6 @@ class app {
                }).on('error', (err) => {
                     next(err);
                }).on('end', () => {
-                    // this.nedbData.queryData(formData);
                     new DATA_HANDLER().queryData(formData);
                });
           }

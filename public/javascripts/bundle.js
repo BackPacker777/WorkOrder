@@ -95,8 +95,8 @@
 	                    this.recordCount = 0;
 	                    let tempList = JSON.parse(XHR.responseText);
 	                    for (let i = 0; i < Object.keys(tempList).length; i++) {
-	                         this.workList.push(tempList[i]);
 	                         if (tempList[i].completed == 0) {
+	                              this.workList.push(tempList[i]);
 	                              this.recordCount++;
 	                         } else {
 	                              this.completedList.push(tempList[i]);
